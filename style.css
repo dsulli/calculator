@@ -1,0 +1,103 @@
+body {
+    background-color: #D9CEB6;
+}
+
+.calc-body {
+    width: 25%;
+    background-color: #332C28;
+    box-sizing: border-box;
+    padding: 0;
+    margin: auto;
+}
+
+.calc-top {
+    width: 100%;
+}
+
+.user-input {
+    height: 40px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1em;
+    box-sizing: border-box;
+    padding: 20px 20px 10px 10px;
+    text-align: right;
+    color: #9E8777;
+
+}
+
+.answer {
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 48px;
+    padding: 10px 20px 10px 10px;
+    text-align: right;
+    color: #AABA77;
+}
+
+.button {
+    width: 25%;
+    padding-bottom: 25%;
+    display: inline-block;
+    background-color: #4D433C;
+    margin: 0px;
+    position: relative;
+    vertical-align: top;
+    transition: background-color .7s;
+    color: #E6D7BC;
+}
+
+.clear {
+    width: 50%;
+    padding-bottom: 20%;
+    background-color: #4F5744;
+
+}
+
+.button span {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 2vw;
+
+    -webkit-user-select: none;
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.button:active {
+
+    background-color: #899660;
+    transition: .1s;
+}
+
+@media screen and (max-width: 900px) {
+
+    .calc-body {
+        width: 35%;
+    }
+
+    .button span {
+        font-size: 3vw;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+
+    .calc-body {
+        width: 95%;
+    }
+
+    .button span {
+        font-size: 8vw;
+    }
+
+
+}
