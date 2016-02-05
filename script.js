@@ -7,13 +7,40 @@ function store_number(val) {
     update_display();
 }
 
+function is_operator(val) {
+    if(['+', '-', 'x', '/'].indexOf(val) > -1) {
+
+        return true;
+    } else {
+        return false;
+    }
+}
+
 //Stores operator into storage array by moving to the next index, storing the operator there,
 //then incrementing the index again.
 function store_operator(val) {
-    storage_index++;
-    input_storage[storage_index] = val;
-    storage_index++;
-    input_storage[storage_index] = "";
+    //check if we are in the first index of the array
+    if(storage_index === 0 && input_storage[storage_index] == "") {
+        if(val == '-') {
+            input_storage[storage_index] = 0;
+            storage_index++;
+            input_storage[storage_index] = '-';
+            storage_index++;
+            input_storage[storage_index] = "";
+        }
+        return;
+    }
+
+    //first check if there is already an operator that was last pressed
+    if(is_operator(input_storage[storage_index - 1]) && input_storage[storage_index] === "") {
+        input_storage[storage_index - 1] = val;
+    } else {
+        storage_index++;
+        input_storage[storage_index] = val;
+        storage_index++;
+        input_storage[storage_index] = "";
+
+    }
     update_display();
 }
 
@@ -24,7 +51,12 @@ function update_display() {
     if(result !== null) {
         output_answer = result;
     }
-    for(var i = 0; i < input_storage.length; i++) {
+    var i = 0;
+    if(input_storage[0] == '0') {
+        i++;
+    }
+    for(i; i < input_storage.length; i++) {
+
         output_array += input_storage[i];
     }
 
@@ -67,7 +99,7 @@ function do_math() {
         }
         operator = input_storage[i+1];
         op2 = parseInt(input_storage[i+2]);
-        result = perform_calc(op1,op2,operator).toFixed(10);
+        result = perform_calc(op1,op2,operator);
     }
 }
 
@@ -92,7 +124,8 @@ $(document).ready(function(){
        if(!isNaN(parseInt(button_val))) {
            store_number(button_val);
        }
-       else if(['+', '-', 'x', '/'].indexOf(button_val) > -1) {
+       else if(is_operator(button_val)) {
+
             store_operator(button_val);
        }
        else if(button_val == "=") {
