@@ -102,8 +102,19 @@ function do_math() {
     var op1, op2, operator;
 
     //check if last input was an operator
+    //CHANGE THIS
     if(is_operator(input_storage[storage_index - 1]) && input_storage[storage_index] === "") {
         input_storage[storage_index] = input_storage[storage_index - 2];
+    }
+
+    //check if last input was a number, as equals is pressed
+    //for 1 + 1 = = =
+    if(!isNaN(input_storage[storage_index]) && result !== null && input_storage[storage_index] !== "") {
+
+        var op1_copy = result;
+        var operator_copy = input_storage[storage_index - 1];
+        var op2_copy = input_storage[storage_index];
+        input_storage[storage_index] = op1_copy;
     }
 
     //if input_storage has only one value and = is pressed, the result is the value
@@ -120,10 +131,11 @@ function do_math() {
         if(i === 0) {
             op1 = parseFloat(input_storage[i]);
         }
-        //otherwise, op1 is the result from the last calculation
         else {
             op1 = result;
         }
+        //otherwise, op1 is the result from the last calculation
+
         //operator is the value after the current index in input_storage
         operator = input_storage[i+1];
         //op2 is the value after the operator
@@ -131,6 +143,7 @@ function do_math() {
 
         result = perform_calc(op1,op2,operator);
     }
+
 }
 
 //clear sets the storage_index and input_storage to their initial values
