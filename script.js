@@ -2,14 +2,23 @@ var input_storage = [''];
 var storage_index = 0;
 var result = null;
 
+//Stores number into storage array
 function store_number(val) {
-    input_storage[storage_index] += val;
-    update_display();
+    //check if the last input is a . and the next input is a . to prevent multiple .s
+    if(input_storage[storage_index][input_storage[storage_index].length - 1] === '.' && val === '.') {
+        if(input_storage[storage_index - 1] >= 0)
+            input_storage[storage_index - 1] = val;
+    }
+    //if it isn't a ., then add the number to the current index value
+    else {
+        input_storage[storage_index] += val;
+    }
+
 }
 
+//checks if a value is an operator, returns a bool
 function is_operator(val) {
     if(['+', '-', 'x', '/'].indexOf(val) > -1) {
-
         return true;
     } else {
         return false;
@@ -33,7 +42,7 @@ function store_operator(val) {
 
     //first check if there is already an operator that was last pressed
     if(is_operator(input_storage[storage_index - 1]) && input_storage[storage_index] === "") {
-        input_storage[storage_index - 1] = val;
+        input_storage[storage_index - 1] = val; //replace old operator with new one
     } else {
         storage_index++;
         input_storage[storage_index] = val;
@@ -41,7 +50,6 @@ function store_operator(val) {
         input_storage[storage_index] = "";
 
     }
-    update_display();
 }
 
 //Checks if there is a result, and if there is, outputs it. If not, it outputs the current input storage array contents.
@@ -51,20 +59,19 @@ function update_display() {
     if(result !== null) {
         output_answer = result;
     }
-    var i = 0;
-    if(input_storage[0] == '0') {
-        i++;
-    }
-    for(i; i < input_storage.length; i++) {
+    if(input_storage.length > 0) {
+        for(var i = 0; i < input_storage.length; i++) {
+            output_array += input_storage[i];
+        }
 
-        output_array += input_storage[i];
     }
 
-
+    //show input and result on the display divs
     $('#input-display').text(output_array);
     $('#result').text(output_answer);
 }
-
+//perform_calc takes 3 parameters: op1, op2, and operator
+//returns the calculation based on those parameters
 function perform_calc(op1, op2, operator) {
     var answer = null;
     switch(operator) {
@@ -88,40 +95,65 @@ function perform_calc(op1, op2, operator) {
     return answer;
 }
 
+//do_math is called when the = button is pressed
+//goes through the input_storage array then calls perform_calc while there are values in the array
 function do_math() {
+
     var op1, op2, operator;
+
+    //check if last input was an operator
+    if(is_operator(input_storage[storage_index - 1]) && input_storage[storage_index] === "") {
+        input_storage[storage_index] = input_storage[storage_index - 2];
+    }
+
+    //if input_storage has only one value and = is pressed, the result is the value
+    if(input_storage.length === 1 && input_storage[0] !== "") {
+        result = input_storage[0];
+    }
+    //if nothing was entered and = was pressed, the result is 0
+    else if(input_storage.length === 1 && input_storage[0] === "") {
+        result = 0;
+    }
+    //iterate through the input_storage array
     for(var i = 0; i < input_storage.length-1; i+=2) {
+        //assign the first variable in input_storage to op1
         if(i === 0) {
-            op1 = parseInt(input_storage[i]);
+            op1 = parseFloat(input_storage[i]);
         }
+        //otherwise, op1 is the result from the last calculation
         else {
             op1 = result;
         }
+        //operator is the value after the current index in input_storage
         operator = input_storage[i+1];
-        op2 = parseInt(input_storage[i+2]);
+        //op2 is the value after the operator
+        op2 = parseFloat(input_storage[i+2]);
+
         result = perform_calc(op1,op2,operator);
     }
 }
 
+//clear sets the storage_index and input_storage to their initial values
 function clear() {
     storage_index = 0;
     input_storage = [''];
-    console.log(input_storage);
     result = null;
-    update_display();
 }
 
+//clear_entry clears the value at the current storage_index
 function clear_entry() {
-    input_storage[storage_index] = "";
-    console.log(input_storage, storage_index);
-    update_display();
+
+    if(input_storage[storage_index] === "" && storage_index  > 0) {
+        storage_index--;
+    }
+    input_storage[storage_index] = ""; //replaces value with empty string
 }
 
 $(document).ready(function(){
    $('button').click(function(){
        var button_val = $(this).attr('name');
        //if the button val is a number
-       if(!isNaN(parseInt(button_val))) {
+       if(!isNaN(parseInt(button_val)) || button_val == ".") {
            store_number(button_val);
        }
        else if(is_operator(button_val)) {
@@ -130,7 +162,6 @@ $(document).ready(function(){
        }
        else if(button_val == "=") {
            do_math();
-           update_display();
        }
        else if(button_val == "C") {
             clear();
@@ -138,7 +169,9 @@ $(document).ready(function(){
        else if(button_val == "CE") {
            clear_entry();
        }
+       update_display();
 
        console.log(input_storage);
+
    });
 });
