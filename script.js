@@ -102,19 +102,23 @@ function do_math() {
     var op1, op2, operator;
 
     //check if last input was an operator
-    //CHANGE THIS
     if(is_operator(input_storage[storage_index - 1]) && input_storage[storage_index] === "") {
+        console.log(result);
+        if(result == null && storage_index > 2) {
+            op1 = parseFloat(input_storage[0]);
+            operator = input_storage[1];
+            //op2 is the value after the operator
+            op2 = parseFloat(input_storage[2]);
+
+            result = perform_calc(op1,op2,operator);
+        }
         input_storage[storage_index] = input_storage[storage_index - 2];
     }
 
     //check if last input was a number, as equals is pressed
     //for 1 + 1 = = =
-    if(!isNaN(input_storage[storage_index]) && result !== null && input_storage[storage_index] !== "") {
-
-        var op1_copy = result;
-        var operator_copy = input_storage[storage_index - 1];
-        var op2_copy = input_storage[storage_index];
-        input_storage[storage_index] = op1_copy;
+    if(!isNaN(input_storage[storage_index]) && result !== null && result !== "Error" && input_storage[storage_index] !== "") {
+        input_storage[storage_index] = result;
     }
 
     //if input_storage has only one value and = is pressed, the result is the value
