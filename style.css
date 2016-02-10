@@ -39,6 +39,7 @@ body {
     overflow: hidden;
 }
 
+
 button {
     width: 25%;
     padding-bottom: 25%;
@@ -56,8 +57,29 @@ button {
     width: 50%;
     padding-bottom: 20%;
     background-color: #4F5744;
-
 }
+
+.operator {
+    background-color: #6E5E4D;
+}
+
+.equals {
+    color: #B0BF9B;
+}
+
+#backspace {
+    color: #E6D7BC;
+    border: 2px solid #E6D7BC;
+    border-radius: 5px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3px;
+    width: 30px;
+}
+
 
 button span {
     font-family: 'Josefin Sans', sans-serif;
