@@ -1,14 +1,51 @@
-#calc-body {
-    width: 30%;
-    box-sizing: border-box;
-    margin: auto;
-    background: linear-gradient(#6552B0, #9879C7, #DEA8CF, #FFC9CE);
-    border: 1px solid #FFF;
+body {
+    background-color: pink;
 }
 
-.num {
-    width: 25%;
-    padding-bottom: 25%;
+#calc-body {
+    width: 30%;
+    margin: auto;
+    background-color: #FFF;
+}
+
+.calc-screen {
+    background: linear-gradient(#46499C, #6552B0);
+    border: 1px solid #FFF;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    height: 120px;
+    position: relative;
+    overflow: auto;
+}
+
+.calc-screen div {
+    text-align: right;
+    font-family: 'Varela Round', sans-serif;
+    text-shadow: 0 0 3px #3D3F85;
+}
+
+#input-display {
+    font-size: 1em;
+    color: rgba(255,255,255,.5);
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    padding-bottom: 10px;
+}
+
+#result {
+    font-size: 2.3em;
+    color: #FFF;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+
+}
+
+.buttons {
+    background: linear-gradient(#6552B0, #9879C7, #DEA8CF, #FFC9CE);
+
+}
+
+.btn {
     border: 1px solid #FFF;
     display: inline-block;
     box-sizing: border-box;
@@ -17,7 +54,17 @@
     vertical-align: top;
 }
 
-.num button {
+.btn.num {
+    width: 25%;
+    padding-bottom: 25%;
+}
+
+.btn.clear {
+    width: 50%;
+    padding-bottom: 18%;
+}
+
+.num button, .clear button {
     position: absolute;
     margin: 0;
     width: 100%;
@@ -31,9 +78,15 @@
     font-family: 'Varela Round', sans-serif;
     color: #FFF;
     text-shadow: 0 0 3px #6552B0;
+    transition: background-color .25s;
 }
 
-.num button:focus {
+button:hover {
+    background-color: rgba(255,255,255,.4);
+
+}
+
+button:focus {
     outline: none;
     border: none;
     background-color: rgba(255,255,255,.2);
