@@ -23,7 +23,7 @@ body {
     box-sizing: border-box;
     display: inline-block;
     width: 100%;
-    height: 100px;
+    height: 110px;
     position: relative;
 
 }
@@ -75,7 +75,27 @@ body {
 #result {
     font-size: 2.3em;
     color: #FFF;
+    line-height: 1em;
 
+}
+
+.show {
+    display: inline-block;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    animation: showLetter 1s 1;
+}
+
+@keyframes showLetter {
+    from {
+        max-width: 0;
+        opacity: 0;
+    }
+    to {
+        max-width: 100%;
+        opacity: 1;
+    }
 }
 
 .buttons {
@@ -114,7 +134,7 @@ button {
     border: none;
 }
 
-button:hover {
+button:hover, button:focus:hover {
     background-color: rgba(255,255,255,.4);
     color: #222340;
     text-shadow: none;
@@ -122,16 +142,14 @@ button:hover {
 
 button:focus {
     outline: none;
-    /*background-color: rgba(255,255,255,.2);*/
-    /*color: #222340;*/
-    /*text-shadow: none;*/
 
 }
 
-button:active {
-
+button:active, button:active:hover, .activeButton {
     background-color: rgba(255,255,255,.8);
-    transition: all .25s;
+    font-size: 2em;
+    color: #222340;
+
 }
 
 .clear button span {

@@ -206,7 +206,7 @@ function getInput(button) {
         case '-':
         case '+':
         case '=':
-            displayInput(" " + button + " ");
+            displayInput("  " + button + "  ");
             break;
         case 'C':
         case 'CE':
@@ -219,14 +219,20 @@ function getInput(button) {
 }
 
 function displayInput(button) {
-    var newNum = $('<span>').text(button);
+    var newNum = $('<span>').addClass('show').text(button);
     $('#input-display').append(newNum);
+    setTimeout(function() {
+        newNum.css({'max-width': '100%', 'opacity': '1'});
+    }, 1000);
 }
 
 function displayResult(result) {
     //if equals was pressed, clear result div
-    var newResult = $('<span>').text(result);
+    var newResult = $('<span>').addClass('show').text(result);
     $('#result').append(newResult);
+    setTimeout(function() {
+        newResult.css({'max-width': '100%', 'opacity': '1'});
+    }, 1000);
 }
 
 function convertKeyCode(keyCode) {
@@ -244,6 +250,7 @@ function convertKeyCode(keyCode) {
         43: '+',
         47: '÷',
         120: '×',
+        42: '×',
         45: '-',
         46: '.',
         61: '='
@@ -256,13 +263,20 @@ function convertKeyCode(keyCode) {
 }
 
 $(document).ready(function() {
+    //click input
     $('button').click(function() {
         console.log($(this).text());
         getInput($(this).text());
     });
-
+    //keyboard input
     $(window).keypress(function(e) {
         console.log(e.keyCode);
+        console.log(convertKeyCode(e.keyCode));
+        $('button:contains(' + convertKeyCode(e.keyCode) + ')').addClass('activeButton');
         getInput(convertKeyCode(e.keyCode));
+    });
+
+    $(window).keyup(function(e) {
+        $('button').removeClass('activeButton');
     });
 });
