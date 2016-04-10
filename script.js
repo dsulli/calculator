@@ -1,3 +1,4 @@
+/*
 var input_storage = [''];
 var storage_index = 0;
 var result = null;
@@ -192,4 +193,76 @@ $(document).ready(function(){
        console.log(input_storage);
 
    });
+});
+
+    */
+
+function getInput(button) {
+    switch(button) {
+        case 'invalid':
+            break;
+        case '÷':
+        case '×':
+        case '-':
+        case '+':
+        case '=':
+            displayInput(" " + button + " ");
+            break;
+        case 'C':
+        case 'CE':
+            break;
+        default: //for nums
+            displayInput(button);
+            displayResult(button);
+            break;
+    }
+}
+
+function displayInput(button) {
+    var newNum = $('<span>').text(button);
+    $('#input-display').append(newNum);
+}
+
+function displayResult(result) {
+    //if equals was pressed, clear result div
+    var newResult = $('<span>').text(result);
+    $('#result').append(newResult);
+}
+
+function convertKeyCode(keyCode) {
+    var keyChart = {
+        48: 0,
+        49: 1,
+        50: 2,
+        51: 3,
+        52: 4,
+        53: 5,
+        54: 6,
+        55: 7,
+        56: 8,
+        57: 9,
+        43: '+',
+        47: '÷',
+        120: '×',
+        45: '-',
+        46: '.',
+        61: '='
+    };
+
+    if (keyChart[keyCode] != undefined) {
+        return keyChart[keyCode];
+    }
+    return 'invalid';
+}
+
+$(document).ready(function() {
+    $('button').click(function() {
+        console.log($(this).text());
+        getInput($(this).text());
+    });
+
+    $(window).keypress(function(e) {
+        console.log(e.keyCode);
+        getInput(convertKeyCode(e.keyCode));
+    });
 });
