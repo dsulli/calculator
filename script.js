@@ -18,7 +18,7 @@ function store_number(val) {
 
 //checks if a value is an operator, returns a bool
 function is_operator(val) {
-    if(['+', '-', 'x', '/'].indexOf(val) > -1) {
+    if(['+', '-', '×', '÷'].indexOf(val) > -1) {
         return true;
     } else {
         return false;
@@ -81,10 +81,10 @@ function perform_calc(op1, op2, operator) {
         case '-':
             answer = op1 - op2;
             break;
-        case 'x':
+        case '×':
             answer = op1 * op2;
             break;
-        case '/':
+        case '÷':
             if(op2 === 0) {
                 answer = 'Error';
                 break;
@@ -169,6 +169,7 @@ function clear_entry() {
 $(document).ready(function(){
    $('button').click(function(){
        var button_val = $(this).attr('name');
+       console.log(button_val);
        //if the button val is a number
        if(!isNaN(parseInt(button_val)) || button_val == ".") {
            store_number(button_val);
