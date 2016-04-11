@@ -201,11 +201,12 @@ function getInput(button) {
     switch(button) {
         case 'invalid':
             break;
+        case '=':
+            break;
         case '÷':
         case '×':
         case '-':
         case '+':
-        case '=':
             displayInput("  " + button + "  ");
             break;
         case 'C':
@@ -232,6 +233,7 @@ function displayResult(result) {
     $('#result').append(newResult);
     setTimeout(function() {
         newResult.css({'max-width': '100%', 'opacity': '1'});
+        $('#displays').scrollTop($('#displays').prop('scrollHeight'));
     }, 1000);
 }
 
