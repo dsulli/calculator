@@ -109,9 +109,9 @@ function Calculator() {
 
         //check if last input was a number, as equals is pressed
         //for 1 + 1 = = =
-        if(!isNaN(input_storage[storage_index]) && result !== null && result !== "Error" && input_storage[storage_index] !== "") {
-            input_storage[storage_index] = result;
-        }
+        //if(!isNaN(input_storage[storage_index]) && result !== null && result !== "Error" && input_storage[storage_index] !== "") {
+        //    input_storage[storage_index] = result;
+        //}
 
         //if input_storage has only one value and = is pressed, the result is the value
         if(input_storage.length === 1 && input_storage[0] !== "") {
@@ -122,6 +122,7 @@ function Calculator() {
         else if(input_storage.length === 1 && input_storage[0] === "") {
             result = 0;
         }
+
         //iterate through the input_storage array
         for(var i = 0; i < input_storage.length-1; i+=2) {
             //assign the first variable in input_storage to op1
@@ -140,9 +141,18 @@ function Calculator() {
 
             result = performCalc(op1,op2,operator);
         }
-        console.log('array in calculate:', input_storage);
-        console.log('result in calculate:', result);
+        console.log('array in calculate 1:', input_storage);
+        console.log('result in calculate 1:', result);
+
         displayResult();
+
+        input_storage = [];
+        storage_index = 0;
+        input_storage[storage_index] = result;
+        console.log('array in calculate 2:', input_storage);
+        console.log('result in calculate 2:', result);
+
+
     }
 
     ////clear sets the storage_index and input_storage to their initial values
@@ -164,9 +174,9 @@ function Calculator() {
         }
         else {
             input_storage[storage_index] = ""; //replaces value with empty string
-            if(storage_index > 0) {
-                storage_index--;
-            }
+            //if(storage_index > 0) {
+            //    storage_index--;
+            //}
         }
         subFromDisplay();
         console.log('input storage: ', input_storage);
@@ -218,18 +228,20 @@ function Calculator() {
         var result_span = $('<span>').addClass('show-char').text(result);
         new_result.append(result_span);
         $('#displays').append(new_result);
+        $('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
+
         setTimeout(function() {
             result_span.css({'max-width': '100%', 'opacity': '1'});
-            $('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
         }, 1000);
     }
 
     function addToDisplay(result) {
         var newResult = $('<span>').addClass('show-char').text(result);
         $('.result').append(newResult);
+        $('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
+
         setTimeout(function() {
             newResult.css({'max-width': '100%', 'opacity': '1'});
-            $('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
 
         }, 1000);
     }
