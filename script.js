@@ -214,7 +214,8 @@ function convertKeyCode(keyCode) {
         42: '×',
         45: '-',
         46: '.',
-        61: '='
+        61: '=',
+        13: '='
     };
 
     if (keyChart[keyCode] != undefined) {
@@ -229,14 +230,11 @@ $(document).ready(function() {
 
     //click input
     $('button').click(function() {
-        console.log($(this).text());
         calc.getInput($(this).text());
     });
 
     //keyboard input
     $(window).keypress(function(e) {
-        console.log(e.keyCode);
-        console.log(convertKeyCode(e.keyCode));
         $('button:contains(' + convertKeyCode(e.keyCode) + ')').addClass('activeButton');
         calc.getInput(convertKeyCode(e.keyCode));
     });

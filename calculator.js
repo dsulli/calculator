@@ -102,7 +102,7 @@ function Calculator() {
                 //op2 is the value after the operator
                 op2 = parseFloat(input_storage[2]);
 
-                result = perform_calc(op1,op2,operator);
+                result = performCalc(op1,op2,operator);
             }
             input_storage[storage_index] = input_storage[storage_index - 2];
         }
@@ -116,6 +116,7 @@ function Calculator() {
         //if input_storage has only one value and = is pressed, the result is the value
         if(input_storage.length === 1 && input_storage[0] !== "") {
             result = input_storage[0];
+            console.log('result became ', input_storage);
         }
         //if nothing was entered and = was pressed, the result is 0
         else if(input_storage.length === 1 && input_storage[0] === "") {
@@ -139,12 +140,27 @@ function Calculator() {
 
             result = performCalc(op1,op2,operator);
         }
-
+        console.log('array in calculate:', input_storage);
+        console.log('result in calculate:', result);
         displayResult();
+    }
 
-        input_storage = [];
-        input_storage[0] = result;
+    ////clear sets the storage_index and input_storage to their initial values
+    function clear() {
         storage_index = 0;
+        input_storage = [''];
+        result = null;
+    }
+
+    //clear_entry clears the value at the current storage_index
+    function clearEntry() {
+        if(input_storage[storage_index] === "" && storage_index  > 0) {
+            storage_index--;
+        }
+        input_storage[storage_index] = ""; //replaces value with empty string
+        subFromDisplay();
+        console.log('input storage: ', input_storage);
+        console.log('storage index: ', storage_index);
 
     }
 
@@ -174,6 +190,7 @@ function Calculator() {
             case 'C':
                 break;
             case 'CE':
+                clearEntry();
                 break;
             default: //for nums
                 storeNumber(button_val);
@@ -182,16 +199,6 @@ function Calculator() {
         }
 
     };
-
-
-    //var displayCalc = function(calc) {
-    //    var newCalc = $('<span>').addClass('show-calc').text(calc);
-    //    $('.input-display').append(newCalc);
-    //    setTimeout(function() {
-    //        newCalc.css({'max-height': '1em', 'opacity': '1'});
-    //        $('#displays').scrollTop($('#displays').prop('scrollHeight'));
-    //    }, 1000);
-    //};
 
     function displayResult() {
         $('.result').addClass('previous-input');
@@ -203,17 +210,24 @@ function Calculator() {
         $('#displays').append(new_result);
         setTimeout(function() {
             result_span.css({'max-width': '100%', 'opacity': '1'});
-            $('#displays').scrollTop($('#displays').prop('scrollHeight'));
+            $('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
         }, 1000);
     }
 
     function addToDisplay(result) {
-        //if equals was pressed, clear result div
         var newResult = $('<span>').addClass('show-char').text(result);
         $('.result').append(newResult);
         setTimeout(function() {
             newResult.css({'max-width': '100%', 'opacity': '1'});
-            $('#displays').scrollTop($('#displays').prop('scrollHeight'));
+            $('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
+
+        }, 1000);
+    }
+
+    function subFromDisplay() {
+        $('.result .show-char').addClass('hide-char').removeClass('show-char');
+        setTimeout(function(){
+            $('.result .hide-char').remove();
         }, 1000);
     }
 }
