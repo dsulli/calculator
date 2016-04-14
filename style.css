@@ -8,13 +8,24 @@ body {
     background-size: cover;
 }
 
+.container {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    top: 50vh;
+    transform: translateY(-50%);
+}
+
 #calc-body {
+    display: block;
     max-width: 320px;
     background-color: #FFF;
     border: 1px solid #FFF;
-    margin: 20px auto;
-    position: relative;
+    margin: auto;
     box-shadow: 0 0 20px #5454e5;
+    max-height: 504px;
+
+
 }
 
 .calc-screen {
@@ -212,4 +223,11 @@ button:active, button:active:hover, .activeButton {
 .desc a:hover {
     color: #FFF;
     text-decoration: none;
+}
+
+@media (max-height: 600px) {
+    .container {
+        top: 0;
+        transform: none;
+    }
 }

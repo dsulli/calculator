@@ -176,9 +176,11 @@ function Calculator() {
         }
         else {
             input_storage[storage_index] = ""; //replaces value with empty string
-            //if(storage_index > 0) {
-            //    storage_index--;
-            //}
+            if(storage_index > 0) {
+                input_storage.splice(storage_index, 1);
+                storage_index--;
+
+            }
         }
         subFromDisplay();
         console.log('input storage: ', input_storage);
