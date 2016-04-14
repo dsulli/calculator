@@ -1,7 +1,10 @@
-# Calculator Example Branch
+# Calculator
+This calculator project was made to demonstrate and practice HTML, CSS, Javascript, and jQuery. The current version is 2.0 and has the following features:
 
-## Description
-This branch is used to hold example code using the calculator object.
-
-#### <a href="http://Learning-Fuze.github.io/calculator/" target="_blank">View Demo</a>
-
+## Features
+- Animated User Interface
+- Click & Keyboard Input
+- Basic Operations
+- Successive Operations (without order of operations/PEMDAS)
+- Operation Rollover (1+1+=+=)
+- Partial Operand (3*=)
