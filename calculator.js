@@ -5,13 +5,24 @@
 
  */
 
+
+/*
+ * Calculator
+ *
+ * @constructor
+ * @this {Calculator}
+ */
+
 function Calculator() {
     var input_storage = [""];
     var storage_index = 0;
     var result = null;
 
-
-    //Stores number into storage array
+    /*
+     * Stores numbers into storage array
+     *
+     * @param {string} num User inputted number or decimal
+     */
     function storeNumber(num) {
         //if current input is a decimal and there is already a decimal in the current index, do nothing
         if(num == "." && input_storage[storage_index].indexOf('.') != '-1') {
@@ -28,15 +39,24 @@ function Calculator() {
 
     }
 
-    //checks if a value is an operator, returns a bool
+    /*
+     * Checks if a value is an operator
+     *
+     * @param {string} val value to check
+     * @return {boolean} True if val is an operator, false if not
+     */
     function isOperator(val) {
         return ['+', '-', '×', '÷'].indexOf(val) > -1;
     }
 
-    //Stores operator into storage array by moving to the next index, storing the operator there,
-    //then incrementing the index again.
+    /*
+     * Stores operator into storage array by moving to the next storage index, storing the operator there,
+     * then incrementing the storage index again.
+     *
+     * @param {string} operator User inputted operator
+     *
+     */
     function storeOperator(operator) {
-
 
         //check if we are in the first index of the array and if operator is -, then make next num negative
         if(storage_index === 0 && input_storage[storage_index] == "") {
@@ -63,8 +83,14 @@ function Calculator() {
         }
     }
 
-    ////performCalc takes 3 parameters: op1, op2, and operator
-    //returns the calculation based on those parameters
+    /*
+     * Takes 3 parameters and returns a calculation based on those parameters.
+     *
+     * @param {string} op1 First Operand
+     * @param {string} op2 Second Operand
+     * @param {string} operator Operator
+     * @return {number} The result of calculating the parameters.
+     */
     function performCalc(op1, op2, operator) {
         var answer = null;
         switch(operator) {
@@ -90,6 +116,14 @@ function Calculator() {
 
     //calculate is called when the = button is pressed
     //goes through the input_storage array then calls perform_calc while there are values in the array
+
+    /*
+     * Called when the equals button is pressed.
+     * Iterates through the input_storage array, then calls performCalc while there are values in the array.
+     * Checks for certain conditions such as multiple operators pressed consecutively.
+     * Calls displayResult once result is defined.
+     *
+     */
     function calculate() {
 
         var op1, op2, operator;
@@ -156,7 +190,10 @@ function Calculator() {
 
     }
 
-    ////clear sets the storage_index and input_storage to their initial values
+    /*
+     * Called when C button is pressed.
+     * Sets the storage_index and input_storage to their initial values.
+     */
     function clear() {
         storage_index = 0;
         input_storage = [''];
@@ -165,21 +202,25 @@ function Calculator() {
     }
 
     //clear_entry clears the value at the current storage_index
+    /*
+     * Clears the value at the current storage_index.
+     * Calls subFromDisplay to remove visually.
+     */
     function clearEntry() {
+        //if there is no value at current index (such as after an operator)
         if(input_storage[storage_index] === "" && storage_index  > 0) {
             storage_index--;
         }
+        //if the value at current index has more than one digit
         if(input_storage[storage_index].length > 1) {
-            var current_val = input_storage.pop();
+            var current_val = input_storage.pop(); //remove last value in input_storage
             input_storage[storage_index] = current_val.slice(0, current_val.length-1);
-            console.log('i was sliced :(');
         }
         else {
             input_storage[storage_index] = ""; //replaces value with empty string
             if(storage_index > 0) {
-                input_storage.splice(storage_index, 1);
+                input_storage.splice(storage_index, 1); //deletes that empty string
                 storage_index--;
-
             }
         }
         subFromDisplay();
@@ -189,11 +230,11 @@ function Calculator() {
     }
 
 
-    /* getInput function is passed input value and performs action based on input type
-     * @params: button_val - value of the user inputted button
+    /*
+     * getInput function is passed input value and performs action based on input type
+     * @param {string} button_val Value of the user inputted button
      */
     this.getInput = function(button_val) {
-
 
         switch(button_val) {
             case 'invalid':
@@ -224,6 +265,18 @@ function Calculator() {
 
     };
 
+
+    /*
+     * Animates the automatic scroll down from the #displays div
+     */
+    function scrollDown() {
+        $('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 400);
+    }
+
+    /*
+     * Displays the result after pressing the equals button and the calculator finds the result.
+     * Moves previous result to the previous-input styling.
+     */
     function displayResult() {
         $('.result').addClass('previous-input');
         $('.result').removeClass('result');
@@ -233,14 +286,18 @@ function Calculator() {
             new_result.append($('<span>').addClass('show-char').text(result[i]));
         }
         $('#displays').append(new_result);
-        $('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
+        scrollDown();
 
         setTimeout(function() {
             $('.result .show-char').css({'max-width': '100%', 'opacity': '1'});
             result = null; //reset result to null for next operation
-        }, 1000);
+        }, 600);
     }
 
+    /*
+     * Called when C button is pressed.
+     * Removes text from #display div.
+     */
     function removeResult() {
         $('.previous-input span').fadeOut(500, function() {
             $('.previous-input').remove();
@@ -250,17 +307,25 @@ function Calculator() {
         });
     }
 
-    function addToDisplay(result) {
-        var newResult = $('<span>').addClass('show-char').text(result);
-        $('.result').append(newResult);
-        $('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
-
+    /*
+     * Called whenever any number or operator button is pressed.
+     * Creates and animations a new span element containing the value of the button pressed.
+     *
+     * @param {string} val Value from user input to display
+     */
+    function addToDisplay(val) {
+        var newVal = $('<span>').addClass('show-char').text(val);
+        $('.result').append(newVal);
+        scrollDown();
         setTimeout(function() {
-            newResult.css({'max-width': '100%', 'opacity': '1'});
-
-        }, 1000);
+            newVal.css({'max-width': '100%', 'opacity': '1'});
+        }, 600);
     }
 
+    /*
+     * Called when the CE button is pressed.
+     * Clears one value from the end (like a backspace key).
+     */
     function subFromDisplay() {
         $('.result .show-char:last-child').animate({
             opacity: 0,
@@ -268,7 +333,5 @@ function Calculator() {
         }, 200, function() {
             this.remove();
         });
-        //$('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
-
     }
 }

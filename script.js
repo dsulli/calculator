@@ -1,10 +1,16 @@
 /*
- script.js
- by Deanna Sulli
- 4/11/16
+     script.js
+     by Deanna Sulli
+     4/11/16
 
  */
 
+/*
+ * KeyCode converter for keyboard input.
+ *
+ * @param {number} keyCode The number of the keyCode from the keypress event.
+ * @return {string} {number} Which calculator button the keyCode corresponds to.
+ */
 function convertKeyCode(keyCode) {
     var keyChart = {
         48: 0,
@@ -52,4 +58,5 @@ $(document).ready(function() {
     $(window).keyup(function(e) {
         $('button').removeClass('activeButton');
     });
+
 });

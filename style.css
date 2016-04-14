@@ -21,7 +21,7 @@ body {
     max-width: 320px;
     background-color: #FFF;
     border: 1px solid #FFF;
-    margin: auto;
+    margin: 0 auto 20px;
     box-shadow: 0 0 20px #5454e5;
     max-height: 504px;
 
@@ -92,7 +92,7 @@ body {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    animation: showCalc 1s 1;
+    animation: showCalc .6s 1;
 }
 
 @keyframes showCalc {
@@ -111,7 +111,7 @@ body {
     max-width: 0;
     opacity: 0;
     overflow: hidden;
-    animation: showChar 1s 1;
+    animation: showChar .6s 1;
 }
 
 @keyframes showChar {
@@ -122,26 +122,6 @@ body {
     to {
         max-width: 100%;
         opacity: 1;
-    }
-}
-
-.hide-char {
-    display: inline-block;
-    max-width: 100%;
-    opacity: 1;
-    overflow: hidden;
-    animation: hideChar .2s 1;
-}
-
-@keyframes hideChar {
-    from {
-        max-width: 100%;
-        opacity: 1;
-
-    }
-    to {
-        max-width: 0;
-        opacity: 0;
     }
 }
 
