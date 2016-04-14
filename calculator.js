@@ -139,7 +139,7 @@ function Calculator() {
             //op2 is the value after the operator
             op2 = parseFloat(input_storage[i+2]);
 
-            result = performCalc(op1,op2,operator);
+            result = "" + performCalc(op1,op2,operator);
         }
         console.log('array in calculate 1:', input_storage);
         console.log('result in calculate 1:', result);
@@ -161,6 +161,7 @@ function Calculator() {
         storage_index = 0;
         input_storage = [''];
         result = null;
+        removeResult();
     }
 
     //clear_entry clears the value at the current storage_index
@@ -209,13 +210,13 @@ function Calculator() {
 
                 break;
             case 'C':
+                clear();
                 break;
             case 'CE':
                 clearEntry();
                 break;
             default: //for nums
                 storeNumber(button_val);
-
                 break;
         }
 
@@ -226,15 +227,25 @@ function Calculator() {
         $('.result').removeClass('result');
 
         var new_result = $('<div>').addClass('result');
-        var result_span = $('<span>').addClass('show-char').text(result);
-        new_result.append(result_span);
+        for(var i = 0; i < result.length; i++) {
+            new_result.append($('<span>').addClass('show-char').text(result[i]));
+        }
         $('#displays').append(new_result);
         $('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
 
         setTimeout(function() {
-            result_span.css({'max-width': '100%', 'opacity': '1'});
+            $('.result .show-char').css({'max-width': '100%', 'opacity': '1'});
             result = null; //reset result to null for next operation
         }, 1000);
+    }
+
+    function removeResult() {
+        $('.previous-input span').fadeOut(500, function() {
+            $('.previous-input').remove();
+        });
+        $('.result span').fadeOut(500, function() {
+            $('.result span').remove();
+        });
     }
 
     function addToDisplay(result) {
@@ -249,9 +260,13 @@ function Calculator() {
     }
 
     function subFromDisplay() {
-        $('.result .show-char:last-child').addClass('hide-char').removeClass('show-char');
-        setTimeout(function(){
-            $('.result .hide-char').remove();
-        }, 1000);
+        $('.result .show-char:last-child').animate({
+            opacity: 0,
+            'max-width': 0
+        }, 200, function() {
+            this.remove();
+        });
+        //$('#displays').animate({ scrollTop: $('#displays').prop('scrollHeight') }, 600);
+
     }
 }
