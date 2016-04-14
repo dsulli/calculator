@@ -157,7 +157,17 @@ function Calculator() {
         if(input_storage[storage_index] === "" && storage_index  > 0) {
             storage_index--;
         }
-        input_storage[storage_index] = ""; //replaces value with empty string
+        if(input_storage[storage_index].length > 1) {
+            var current_val = input_storage.pop();
+            input_storage[storage_index] = current_val.slice(0, current_val.length-1);
+            console.log('i was sliced :(');
+        }
+        else {
+            input_storage[storage_index] = ""; //replaces value with empty string
+            if(storage_index > 0) {
+                storage_index--;
+            }
+        }
         subFromDisplay();
         console.log('input storage: ', input_storage);
         console.log('storage index: ', storage_index);
@@ -225,7 +235,7 @@ function Calculator() {
     }
 
     function subFromDisplay() {
-        $('.result .show-char').addClass('hide-char').removeClass('show-char');
+        $('.result .show-char:last-child').addClass('hide-char').removeClass('show-char');
         setTimeout(function(){
             $('.result .hide-char').remove();
         }, 1000);
