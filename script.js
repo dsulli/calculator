@@ -215,7 +215,8 @@ function convertKeyCode(keyCode) {
         45: '-',
         46: '.',
         61: '=',
-        13: '='
+        13: '=',
+        8: 'CE'
     };
 
     if (keyChart[keyCode] != undefined) {

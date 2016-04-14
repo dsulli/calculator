@@ -109,9 +109,9 @@ function Calculator() {
 
         //check if last input was a number, as equals is pressed
         //for 1 + 1 = = =
-        //if(!isNaN(input_storage[storage_index]) && result !== null && result !== "Error" && input_storage[storage_index] !== "") {
-        //    input_storage[storage_index] = result;
-        //}
+        if(!isNaN(input_storage[storage_index]) && result !== null && result !== "Error" && input_storage[storage_index] !== "") {
+            input_storage[storage_index] = result;
+        }
 
         //if input_storage has only one value and = is pressed, the result is the value
         if(input_storage.length === 1 && input_storage[0] !== "") {
@@ -149,6 +149,7 @@ function Calculator() {
         input_storage = [];
         storage_index = 0;
         input_storage[storage_index] = result;
+
         console.log('array in calculate 2:', input_storage);
         console.log('result in calculate 2:', result);
 
@@ -232,6 +233,7 @@ function Calculator() {
 
         setTimeout(function() {
             result_span.css({'max-width': '100%', 'opacity': '1'});
+            result = null; //reset result to null for next operation
         }, 1000);
     }
 
