@@ -9,7 +9,7 @@ body {
 }
 
 #calc-body {
-    max-width: 340px;
+    max-width: 320px;
     background-color: #FFF;
     border: 1px solid #FFF;
     margin: 20px auto;
@@ -67,27 +67,50 @@ body {
 
 }
 
-#input-display {
+.previous-input {
+    position: relative;
     font-size: 1em;
     color: rgba(255,255,255,.5);
+    transition: all 1s;
 }
 
-#result {
-    font-size: 2.3em;
+.result {
+    font-size: 1.8em;
     color: #FFF;
     line-height: 1em;
+    transition: all 1s;
 
 }
 
-.show {
+.show-calc {
+    display: inline-block;
+    width: 100%;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    animation: showCalc 1s 1;
+}
+
+@keyframes showCalc {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 1em;
+    }
+}
+
+.show-char {
     display: inline-block;
     max-width: 0;
     opacity: 0;
     overflow: hidden;
-    animation: showLetter 1s 1;
+    animation: showChar 1s 1;
 }
 
-@keyframes showLetter {
+@keyframes showChar {
     from {
         max-width: 0;
         opacity: 0;
@@ -95,6 +118,26 @@ body {
     to {
         max-width: 100%;
         opacity: 1;
+    }
+}
+
+.hide-char {
+    display: inline-block;
+    max-width: 100%;
+    opacity: 1;
+    overflow: hidden;
+    animation: hideChar 1s 1;
+}
+
+@keyframes hideChar {
+    from {
+        max-width: 100%;
+        opacity: 1;
+
+    }
+    to {
+        max-width: 0;
+        opacity: 0;
     }
 }
 
