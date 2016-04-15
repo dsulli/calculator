@@ -1,4 +1,7 @@
 # Calculator
+
+[Live Demo](http://dsulli.github.io/calculator/)
+
 This calculator project was made to demonstrate and practice HTML, CSS, Javascript, and jQuery. The current version is 2.0 and has the following features:
 
 ## Features
@@ -8,3 +11,4 @@ This calculator project was made to demonstrate and practice HTML, CSS, Javascri
 - Successive Operations (without order of operations/PEMDAS)
 - Operation Rollover (1+1+=+=)
 - Partial Operand (3*=)
+
